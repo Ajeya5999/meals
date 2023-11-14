@@ -1,5 +1,7 @@
 /* General Properties */
 
+    /* Theme Colors */
+
 :root {
     --primary-theme-color: rgb(106, 42, 45);
     --secondary-theme-color: rgb(171,105,104);
@@ -7,11 +9,15 @@
     --quaternary-theme-color: 
 }
 
+    /* Page background and font style */
+
 body {
     background-image: url("./assets/images/meals-background.jpg");
     background-size: cover;
     font-family: sans-serif;
 }
+
+    /* General button style */
 
 button {
     border-style: solid;
@@ -25,6 +31,8 @@ button {
     transition-duration: 100ms;
     transition-timing-function: ease-in-out;
 }
+
+    /* Button style change on hover */
 
 button:hover {
     background-color: rgba(106, 42, 45, 0.9);
@@ -41,6 +49,8 @@ header {
     position: relative;
     padding-top: 3%;
 }
+
+    /* Site title style */
 
 #site-title {
     background-color: rgba(106, 42, 45, 0.8);
@@ -64,10 +74,42 @@ header {
     -webkit-text-stroke-width: 2px;
 }
 
+    /* View favorites button */
+
 #view-favorites-button {
     position: absolute;
     right: 3%;
     top: 1%;
     border-width: 1px;
     font-size: 1.2rem;
+}
+
+/* Main */
+
+    /* Meals Search Bar */
+
+#search-meals-bar {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    --bar-height: 40px;
+}
+
+#search-meals-bar-input {
+    height: var(--bar-height);
+    width: 35%;
+}
+
+#search-meals-bar-button {
+    height: var(--bar-height);
+    width: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8rem;
+    border-width: 5px;
+    box-sizing: border-box;
+    color: green;
 }
