@@ -1,0 +1,1 @@
+This project is a meals app. The meals app is bascially an app which gives a list of meals from a database, gives options about learning the app, and adding favorites meal to a favorite list.

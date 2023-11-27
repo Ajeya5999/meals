@@ -100,7 +100,23 @@ header {
 
 /* Main */
 
-    /* Meals Search Bar */
+#content {
+    margin-top: 30px;
+}
+
+    /* Meal Card */
+
+.meal-card {
+    background-color: var(--primary-background-color);
+    border: solid var(--primary-border-color) 5px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+    /* Home Page */
+
+        /* Meals Search Bar */
 
 #search-meals-bar {
     width: 100%;
@@ -122,7 +138,7 @@ header {
     box-sizing: border-box;
 }
 
-    /* Meals List */
+        /* Meals List */
 
 #meal-list {
     display: flex;
@@ -134,14 +150,9 @@ header {
     list-style: none;
 }
 
-        /* List Card */
+            /* List Card */
 
 .homepage-meal-card {
-    background-color: var(--primary-background-color);
-    border: solid var(--primary-border-color) 5px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
     margin: 10px 2%;
     padding: 5% 0;
 }
@@ -157,7 +168,7 @@ header {
     font-size: 1rem;
 }
 
-        /* Card Image */
+            /* Card Image */
 
 .homepage-meal-card-img { 
     margin-top: 0;
@@ -170,4 +181,66 @@ header {
 
 .homepage-meal-card-fav-button {
     font-size: 1rem;
+}
+
+    /* Detials Page */
+
+.detailspage-meal-card {
+    position: relative;
+    color: var(--tertiary-theme-color);
+    --division-width: 25%;
+}
+
+        /* Meal Name */
+
+.detailspage-meal-card-name {
+    width: 100%;
+    order: -1;
+    text-align: center;
+    font-size: 2.5rem;
+    margin: 20px 0;
+}
+
+        /* Meal Image */
+
+.detailspage-meal-card-img {
+    width: var(--division-width);
+    margin-right: 2%;
+    margin-bottom: 20px;
+    border: solid red 5px;
+    box-sizing: border-box;
+}
+
+.detailspage-meal-card-img > img {
+    max-width: 100%;
+}
+
+        /* Meal fav button */
+
+.detailspage-meal-card-fav-button {
+    position: absolute;
+    right: 30;
+    top: 15;
+    font-size: 1rem;
+}
+
+        /* Meal instructions */
+
+.detailspage-meal-card-instructions {
+    width: calc(95% - var(--division-width));
+}
+
+.detailspage-meal-card-video {
+    color: white;
+    transition-property: color;
+    transition-duration: 100ms;
+    transition-timing-function: ease-in-out;
+}
+
+.detailspage-meal-card-video:visited {
+    color: rgb(153, 153, 153);
+}
+
+.detailspage-meal-card-video:hover {
+    color: red;
 }
