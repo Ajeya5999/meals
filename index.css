@@ -205,6 +205,7 @@ header {
 
 .detailspage-meal-card-img {
     width: var(--division-width);
+    height: fit-content;
     margin-right: 2%;
     margin-bottom: 20px;
     border: solid red 5px;

@@ -1,5 +1,6 @@
 // HTML Items
 
+const siteTitle = document.getElementById("site-title"); // getting site title element for further use to render homepage from other pages
 const mainSection = document.getElementById("content"); // the main section of the webpage
 const searchedMealInput = document.getElementById("search-meals-bar-input"); // the input bar to search for meals
 const url = "https://www.themealdb.com/api/json/v1/1/search.php?s="; // api's link to retrieve data
@@ -17,6 +18,8 @@ searchedMealInput.addEventListener('input', function() {
     clearTimeout(searchedMealInput.myTimer) // clear the previous function call
     searchedMealInput.myTimer = setTimeout(fetchDataAndDisplay, duration); // function is called after (duration)ms when the input is changed
 });
+
+siteTitle.addEventListener('click', showHomePage);
 
 // Functions
 
@@ -80,6 +83,21 @@ async function fetchDataAndDisplay() { // function for fecthing data in relation
     let res = await fetch(url + searchedMealInput.value.trim()); // get searched meal from search bar
     let data = await res.json(); // convert data returned into JS object.
     for(meal of data.meals) DisplayElementInList(meal, mealList); // display the meal list from api
+}
+
+function showHomePage() {
+    removeAllChildNodes(mainSection);
+    mainSection.innerHTML = `
+        <!-- Form to search -->
+
+        <form id="search-meals-bar">
+            <input type="text" id="search-meals-bar-input" placeholder="Search for meals here">
+        </form>
+
+        <!-- Meal List-->
+
+        <ul id="meal-list"></ul>
+    `;
 }
 
     // Details Page Functions
