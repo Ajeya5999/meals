@@ -9,7 +9,7 @@
     /* Theme colors */
 
     --primary-theme-color: rgb(106, 42, 45);
-    --secondary-theme-color: rgb(171,105,104);
+    --secondary-theme-color: #f4a26a;
     --tertiary-theme-color: rgb(0, 255, 0);
 }
 
@@ -244,4 +244,51 @@ header {
 
 .detailspage-meal-card-video:hover {
     color: red;
+}
+
+    /* Favorites meals page */
+
+        /* Fav Meals List */
+
+#fav-meal-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+            
+#fav-meal-list > li {
+    width: 30%;
+    list-style: none;
+}
+        
+        /* Fav List Card */
+        
+.favmealpage-meal-card {
+    margin: 10px 2%;
+    padding: 5% 0;
+}
+        
+.favmealpage-meal-card > * {
+    margin-top: 10px;
+}
+        
+.favmealpage-meal-card-name { /* Card Name */
+    width: 100%;
+    color: var(--tertiary-theme-color);
+    text-align: center;
+    font-size: 1rem;
+}
+        
+        /* Card Image */
+        
+.favmealpage-meal-card-img { 
+    margin-top: 0;
+    width: 50%;
+}
+        
+.favmealpage-meal-card-img > img {
+    max-width: 100%;
+}
+        
+.favmealpage-meal-card-delete-button {
+    font-size: 1rem;
 }
