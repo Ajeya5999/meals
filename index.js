@@ -2,27 +2,27 @@
 
 const siteTitle = document.getElementById("site-title"); // getting site title element for further use to render homepage from other pages
 const mainSection = document.getElementById("content"); // the main section of the webpage
-const searchedMealInput = document.getElementById("search-meals-bar-input"); // the input bar to search for meals
-const viewFavoritesButton = document.getElementById("view-favorites-button"); // the button to view favroite list
+const viewFavouritesButton = document.getElementById("view-favourites-button"); // the button to view favourite list
 const url = "https://www.themealdb.com/api/json/v1/1/"; // api's link to retrieve data
 
 // IIFE
 
 (function() {
+    const searchedMealInput = document.getElementById("search-meals-bar-input"); // the input bar to search for meals
     searchedMealInput.value = ""; // The search bar should be empty on every refresh
+
+    searchedMealInput.addEventListener('input', function() { // for searching meals
+        let duration = 400; // duration (in milliseconds) for which the list should not show
+        clearTimeout(searchedMealInput.myTimer) // clear the previous function call
+        searchedMealInput.myTimer = setTimeout(fetchDataAndDisplay, duration); // function is called after (duration)ms when the input is changed
+    });
 })();
 
-// Event Listeners
-
-searchedMealInput.addEventListener('input', function() { // for searching meals
-    let duration = 400; // duration (in milliseconds) for which the list should not show
-    clearTimeout(searchedMealInput.myTimer) // clear the previous function call
-    searchedMealInput.myTimer = setTimeout(fetchDataAndDisplay, duration); // function is called after (duration)ms when the input is changed
-});
+// Universal Event Listeners
 
 siteTitle.addEventListener('click', showHomePage); // for rending homepage without refreshing the webpage
 
-viewFavoritesButton.addEventListener('click', viewFavorites); // view favorites on button click
+viewFavouritesButton.addEventListener('click', viewFavourites); // view favourites on button click
 
 // Functions
 
@@ -33,14 +33,14 @@ function removeAllChildNodes(parent) { // function to remove child nodes from a 
     parent.textContent = ""; // removes any extra text left
 }
 
-function addToFavroites(meal) { // function for storing favroite meals
+function addToFavourites(meal) { // function for storing favourite meals
     const mealId = Number(meal.idMeal); // converting ID String to number
     if(localStorage.getItem(mealId)) { // checking if it is already storred in the storage
         alert("Item was already added"); // tell user it was already added
     }
     else {
         localStorage.setItem(Number(meal.idMeal), meal.strMeal); // add the meal to the local storage
-        alert("Item was added to favorites"); // tell the user that the meal was added
+        alert("Item was added to favourites"); // tell the user that the meal was added
     }
 }
 
@@ -52,7 +52,7 @@ function createMealCard(meal, pageType) { // function for making a meal card
     const mealCardImageContainer = document.createElement("div"); // div containing list item's image
     const mealCardImage = document.createElement("img"); // img showing the image of the list item meal
     const mealCardName = document.createElement("div"); // div containing name of the list item
-    const mealCardFavButton = document.createElement("button"); // button which will be used to add the given meal to favroites
+    const mealCardFavButton = document.createElement("button"); // button which will be used to add the given meal to favourites
 
     //adding information to card and its sub-elements
     
@@ -67,24 +67,24 @@ function createMealCard(meal, pageType) { // function for making a meal card
     mealCardName.innerText = meal.strMeal; // getting meals name and displaying it in the name div.
     mealCardName.setAttribute("class", pageType + "-meal-card-name"); // setting card name's class for styling
     
-            //adding card's favroite/delete button
+            //adding card's favourite/delete button
     
-    if(pageType === "favmealpage") {
-        mealCardFavButton.innerText = "Remove From Favorites"; // setting the text in the button to describe its purpose
+    if(pageType === "favmealpage") { // check if the page type is the favourite's page or not
+        mealCardFavButton.innerText = "Remove From Favourites"; // setting the text in the button to describe its purpose
         mealCardFavButton.setAttribute("class", pageType + "-meal-card-delete-button"); // giving class name for styling
-        mealCardFavButton.addEventListener('click', function(event) { // adding a function to remove from favorite list on button click  
+        mealCardFavButton.addEventListener('click', function(event) { // adding a function to remove from favourite list on button click  
             event.preventDefault(); // avoiding any just in case refresh of the page
-            removeFavorite(mealCard, meal.idMeal); // adding to storage
+            removeFavourite(mealCard, meal.idMeal); // adding to storage
             event.stopPropagation(); // avoiding any further propagation
         });     
     }
     else {
-        mealCardFavButton.innerText = "Add to Favriotes"; // setting the text in the button to describe its purpose
+        mealCardFavButton.innerText = "Add to Favourites"; // setting the text in the button to describe its purpose
         mealCardFavButton.setAttribute("class", pageType + "-meal-card-fav-button"); // giving class name for styling
     
-        mealCardFavButton.addEventListener('click', function(event) { // function for adding to favroites
+        mealCardFavButton.addEventListener('click', function(event) { // function for adding to favourites
             event.preventDefault(); // avoiding any just in case refresh of the page
-            addToFavroites(mealCard.info); // adding to storage
+            addToFavourites(mealCard.info); // adding to storage
             event.stopPropagation(); // avoiding any further propagation
         });
     }
@@ -93,16 +93,15 @@ function createMealCard(meal, pageType) { // function for making a meal card
     
     mealCard.info = meal; // adding meal's info to the meal card for further use
     mealCard.append(mealCardImageContainer, mealCardName, mealCardFavButton); // adding everything to the main meal card
-    mealCard.setAttribute("class", "meal-card " + pageType + "-meal-card"); // giving class for styling
+    mealCard.setAttribute("class", "meal-card " + pageType + "-meal-card"); // giving classes for styling
+    mealCard.addEventListener('click', () => {showMealDetails(mealCard.info)}); // adding an event listner to the meal card
 
     return mealCard; //returning the meal card
 }
 
 function DisplayElementInList(meal, mealList, pageType) { // function to create meal items and append them to the list for display
     const listItem = document.createElement("li"); // list item created    
-    let mealCard = createMealCard(meal, pageType); // creating the meal card
-    mealCard.addEventListener('click', () => {showMealDetails(mealCard.info)}); // adding an event listner to the meal card
-    listItem.append(mealCard); // adding meal card as list item
+    listItem.append(createMealCard(meal, pageType)); // creating the meal card and adding it as list item
     mealList.append(listItem); // adding list item to the list
 }
 
@@ -111,9 +110,12 @@ function DisplayElementInList(meal, mealList, pageType) { // function to create 
 async function fetchDataAndDisplay() { // function for fecthing data in relation to the searched word, finding the meals and displaying them
     const mealList = document.getElementById("meal-list"); // the unorder meal list from html
     removeAllChildNodes(mealList); // removing all previous results from the list
-    let res = await fetch(url + "search.php?s=" + searchedMealInput.value.trim()); // get searched meal from search bar
-    let data = await res.json(); // convert data returned into JS object.
-    for(meal of data.meals) DisplayElementInList(meal, mealList, "homepage"); // display the meal list from api
+    const searchedMealInput = document.getElementById("search-meals-bar-input"); // the input bar to search for meals
+    if(searchedMealInput.value != false) { // If the search bar is not empty
+        let res = await fetch(url + "search.php?s=" + searchedMealInput.value.trim()); // get searched meal from search bar
+        let data = await res.json(); // convert data returned into JS object.
+        for(meal of data.meals) DisplayElementInList(meal, mealList, "homepage"); // display the meal list from api
+    }
 }
 
 function showHomePage() { // function for rendring homepage without refreshing the page
@@ -130,6 +132,15 @@ function showHomePage() { // function for rendring homepage without refreshing t
 
         <ul id="meal-list"></ul>
     `; // Add the original home page back
+
+    const searchedMealInput = document.getElementById("search-meals-bar-input"); // the input bar to search for meals
+    searchedMealInput.value = ""; // The search bar should be empty on every refresh
+
+    searchedMealInput.addEventListener('input', function() { // for searching meals
+        let duration = 400; // duration (in milliseconds) for which the list should not show
+        clearTimeout(searchedMealInput.myTimer) // clear the previous function call
+        searchedMealInput.myTimer = setTimeout(fetchDataAndDisplay, duration); // function is called after (duration)ms when the input is changed
+    });
 }
 
     // Details Page Functions
@@ -153,27 +164,27 @@ function showMealDetails(meal) { // function to show detials of a perticular mea
     mainSection.append(mealCard); // adding the card to the page
 }
 
-    // Favorites Page
+    // Favourites Page
 
-function viewFavorites() { // function for viewing the favorite meals
+function viewFavourites() { // function for viewing the favourite meals
     removeAllChildNodes(mainSection); // removing everything from the main section.
 
     mainSection.innerHTML = `
-        <!-- Favorite Meal List-->
+        <!-- Favourite Meal List-->
 
         <ul id="fav-meal-list"></ul>
-    `; // adding html elements for favorites page
+    `; // adding html elements for favourites page
 
-    const favMealList = document.getElementById("fav-meal-list"); // the unorder favorite meal list from html
-    Object.keys(localStorage).forEach(async function(mealId) { // iteratring over every favorite meal
+    const favMealList = document.getElementById("fav-meal-list"); // the unorder favourite meal list from html
+    Object.keys(localStorage).forEach(async function(mealId) { // iteratring over every favourite meal
         let res = await fetch(url + "lookup.php?i=" + mealId); // get searched meal from search bar
         let data = await res.json(); // convert data returned into JS object
-        DisplayElementInList(data.meals[0], favMealList, "favmealpage"); // add meals to favorites page
+        DisplayElementInList(data.meals[0], favMealList, "favmealpage"); // add meals to favourites page
     });
 }
 
-function removeFavorite(mealCard, mealId) { // function to remove from favorites list
+function removeFavourite(mealCard, mealId) { // function to remove from favourites list
     mealCard.parentNode.remove(); // remove the html element
-    localStorage.removeItem(mealId); // remove the favorite meal from storage
+    localStorage.removeItem(mealId); // remove the favourite meal from storage
     alert(mealCard.info.strMeal + " was removed"); // tell the user that the selected meal was removed
 }

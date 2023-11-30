@@ -88,9 +88,9 @@ header {
     -webkit-text-stroke-width: 2px;
 }
 
-    /* View favorites button */
+    /* View favourites button */
 
-#view-favorites-button {
+#view-favourites-button {
     position: absolute;
     right: 3%;
     top: 1%;
@@ -246,7 +246,7 @@ header {
     color: red;
 }
 
-    /* Favorites meals page */
+    /* Favourites meals page */
 
         /* Fav Meals List */
 
