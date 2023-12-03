@@ -22,7 +22,7 @@ Every page has a common header which consists of 2 components:-
 
 + View Favourites:- It is a button used to view one's favourites list.
 
-![Screenshot of the header of the app](./assets/images/Readme%20Images/Header.png)
+![Screenshot of the header of the app](https://github.com/Ajeya5999/meals/assets/42600047/1e73d9f0-276e-433d-b597-2b6bc427d1eb)
 
 The description and function of each aforementioned page is as follows
 
@@ -34,17 +34,16 @@ This is the main page that shows up when the app loads. It consists of the follo
 
 + Meals List:- As a person types, a list of meals will be suggested to them in the form of cards. **One can click on the card to get more details about the recipe**, as the person is sent to the details page. **One can click on the "Add to Favourites" button as well to add the meal to the favourites list**.
 
-![Screenshot of the home page of the app](./assets/images/Readme%20Images/Home%20Page.png)
+![Screenshot of the home page of the app](https://github.com/Ajeya5999/meals/assets/42600047/013b8b5f-d35b-4f79-8ed5-5a3fed3f952a)
 
 ## Details Page
 
 Once a person clicks on one of the cards on the meals list on the home page, one can view the details of the meal. It consists of the recipe along with a YouTube link to the recipe. It also consists of the "Add to Favourites" button to add the meal to the favourites list, as mentioned before. 
 
-![Screenshot of the details page of the app](./assets/images/Readme%20Images/Details%20Page.png)
+![Screenshot of the details page of the app](https://github.com/Ajeya5999/meals/assets/42600047/1890a431-a2f8-49ee-b88d-e6d2e7b59b04)
 
 ## Favourites List page
 
 A person can click on the "View Favourites" button in the app header to view this page. It will show the list of all the meals the person has favourited from the API list in the form of cards. One can click on the card to learn the details or **remove the meal from the list by clicking the "Remove from favourites" button.**
 
-![Screenshot of the favourite meals page of the app](./assets/images/Readme%20Images/Favourite%20Meals%20List.png)
-
+![Screenshot of the favourite meals page of the app](https://github.com/Ajeya5999/meals/assets/42600047/07967dcc-da9f-42f4-a61d-f8e5d1d51f14)
